@@ -56,7 +56,7 @@
   * Thanks also to other contributors, in particular **Fredrik Ekre** and **Jacob Quinn**
 
 
---
+---
 
 
 
@@ -89,7 +89,27 @@ Logging is a servant with many masters
 .image-100[![log plumbing](assets/plumbing.svg)]
 
 
-Direct the right content to the right place.
+.col[ Direct the right content to the right place. ]
+
+
+---
+
+
+
+
+
+
+# What are the parts of a `AbstractLogger`?
+
+
+---
+
+
+
+
+
+
+# What information is available when?
 
 
 ---

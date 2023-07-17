@@ -46,7 +46,7 @@ The problem is the remoteness of Boston, and not of Perth.
  - The Julia 1.0 logging stdlib was largely created by **Claire Foster**
  - Thanks also to other contributors, in particular **Fredrik Ekre** and **Jacob Quinn**
 
---
+---
 
 # Who is logging for ?
 Logging is a servant with many masters
@@ -61,8 +61,17 @@ Logging is a servant with many masters
 # What is log plumbing?
 .image-100[![log plumbing](assets/plumbing.svg)]
 
+.col[
 Direct the right content to the right place.
+]
 
+---
+
+# What are the parts of a `AbstractLogger`?
+
+---
+
+# What information is available when?
 ---
 
 # Future Work
