@@ -18,6 +18,6 @@ using FileWatching
 while true
     build()
     @info "Rebuilt"
-    FileWatching.watch_folder("src/")
+    FileWatching.watch_folder(joinpath(@__DIR__, "src/"))
 end
 
