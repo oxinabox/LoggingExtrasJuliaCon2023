@@ -2,9 +2,9 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   width="171.69868mm"
-   height="87.716133mm"
-   viewBox="0 0 171.69868 87.716133"
+   width="153.6178mm"
+   height="85.639702mm"
+   viewBox="0 0 153.61779 85.639702"
    version="1.1"
    id="svg154004"
    inkscape:version="1.1.2 (0a00cf5339, 2022-02-04)"
@@ -27,14 +27,14 @@
      fit-margin-left="0"
      fit-margin-right="0"
      fit-margin-bottom="0"
-     inkscape:zoom="0.64052329"
-     inkscape:cx="380.93853"
-     inkscape:cy="506.61702"
-     inkscape:window-width="1396"
-     inkscape:window-height="970"
-     inkscape:window-x="5632"
-     inkscape:window-y="944"
-     inkscape:window-maximized="0"
+     inkscape:zoom="3.6233469"
+     inkscape:cx="227.96603"
+     inkscape:cy="156.48516"
+     inkscape:window-width="3840"
+     inkscape:window-height="2091"
+     inkscape:window-x="3840"
+     inkscape:window-y="32"
+     inkscape:window-maximized="1"
      inkscape:current-layer="layer1" />
   <defs
      id="defs154001">
@@ -49,7 +49,7 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(-4.2550738,-14.572249)">
+     transform="translate(-22.33597,-16.648682)">
     <text
        xml:space="preserve"
        transform="matrix(0.26458333,0,0,0.26458333,70.178158,4.6096142)"
@@ -57,138 +57,138 @@
        style="font-style:normal;font-weight:normal;font-size:18.6667px;line-height:1.25;font-family:sans-serif;white-space:pre;shape-inside:url(#rect178838);fill:#000000;fill-opacity:1;stroke:none"><tspan
          x="82.949219"
          y="61.96292"
-         id="tspan243511"><tspan
+         id="tspan1857"><tspan
    style="font-weight:bold"
-   id="tspan243509">level</tspan>: Info, Warn etc
+   id="tspan1855">level</tspan>: Info, Warn etc
 </tspan><tspan
          x="82.949219"
          y="85.296294"
-         id="tspan243513">
+         id="tspan1859">
 </tspan><tspan
          x="82.949219"
          y="108.62967"
-         id="tspan243517"><tspan
+         id="tspan1863"><tspan
    style="font-weight:bold"
-   id="tspan243515">group</tspan>: the group key, for </tspan><tspan
+   id="tspan1861">group</tspan>: the group key, for </tspan><tspan
          x="82.949219"
          y="131.96304"
-         id="tspan243519">categorizing log messages.
+         id="tspan1865">categorizing log messages.
 </tspan><tspan
          x="82.949219"
          y="155.29642"
-         id="tspan243523"><tspan
+         id="tspan1869"><tspan
    style="font-weight:bold"
-   id="tspan243521">id</tspan>: id of the log message unique </tspan><tspan
+   id="tspan1867">id</tspan>: id of the log message unique </tspan><tspan
          x="82.949219"
          y="178.62979"
-         id="tspan243525">oer macro use
+         id="tspan1871">oer macro use
 </tspan><tspan
          x="82.949219"
          y="201.96316"
-         id="tspan243529"><tspan
+         id="tspan1875"><tspan
    style="font-weight:bold"
-   id="tspan243527">module</tspan>: the module the logging </tspan><tspan
+   id="tspan1873">module</tspan>: the module the logging </tspan><tspan
          x="82.949219"
          y="225.29654"
-         id="tspan243531">macro was called from.
+         id="tspan1877">macro was called from.
 </tspan><tspan
          x="82.949219"
          y="248.62991"
-         id="tspan243533">
+         id="tspan1879">
 </tspan><tspan
          x="82.949219"
          y="271.96329"
-         id="tspan243537"><tspan
+         id="tspan1883"><tspan
    style="font-weight:bold"
-   id="tspan243535">file</tspan>: the file of the logging site
+   id="tspan1881">file</tspan>: the file of the logging site
 </tspan><tspan
          x="82.949219"
          y="295.29666"
-         id="tspan243541"><tspan
+         id="tspan1887"><tspan
    style="font-weight:bold"
-   id="tspan243539">line</tspan>: the line of the logging site
+   id="tspan1885">line</tspan>: the line of the logging site
 </tspan><tspan
          x="82.949219"
          y="318.63003"
-         id="tspan243545"><tspan
+         id="tspan1891"><tspan
    style="font-weight:bold"
-   id="tspan243543">message</tspan>: the log message
+   id="tspan1889">message</tspan>: the log message
 </tspan><tspan
          x="82.949219"
          y="341.96341"
-         id="tspan243549"><tspan
+         id="tspan1895"><tspan
    style="font-weight:bold"
-   id="tspan243547">kwargs</tspan>: other arguments passed </tspan><tspan
+   id="tspan1893">kwargs</tspan>: other arguments passed </tspan><tspan
          x="82.949219"
          y="365.29678"
-         id="tspan243551">to logging macro</tspan></text>
+         id="tspan1897">to logging macro</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:4.93889px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
-       x="14.511431"
-       y="18.324648"
+       x="27.540133"
+       y="20.401081"
        id="text204446"><tspan
          sodipodi:role="line"
          id="tspan204444"
          style="font-size:4.93889px;fill:#008000;stroke-width:0.264583"
-         x="14.511431"
-         y="18.324648">min_enabled_level</tspan><tspan
+         x="27.540133"
+         y="20.401081">min_enabled_level</tspan><tspan
          sodipodi:role="line"
          style="font-size:4.93889px;fill:#008000;stroke-width:0.264583"
-         x="14.511431"
-         y="24.49826"
+         x="27.540133"
+         y="26.574694"
          id="tspan208594">MinLevelLogger</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:4.93889px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
-       x="9.6161051"
-       y="47.167381"
+       x="25.155088"
+       y="43.564789"
        id="text204446-7"><tspan
          sodipodi:role="line"
          id="tspan204444-5"
          style="font-size:4.93889px;fill:#0000ff;stroke-width:0.264583"
-         x="9.6161051"
-         y="47.167381">should_log</tspan><tspan
+         x="25.155088"
+         y="43.564789">should_log</tspan><tspan
          sodipodi:role="line"
          style="font-size:4.93889px;fill:#0000ff;stroke-width:0.264583"
-         x="9.6161051"
-         y="53.340992"
+         x="25.155088"
+         y="49.7384"
          id="tspan208594-3">EarlyFilteredLogger</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:4.93889px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
-       x="4.2695432"
-       y="76.337532"
+       x="22.350439"
+       y="77.496086"
        id="text204446-5"><tspan
          sodipodi:role="line"
          style="font-size:4.93889px;fill:#800000;stroke-width:0.264583"
-         x="4.2695432"
-         y="76.337532"
+         x="22.350439"
+         y="77.496086"
          id="tspan208594-2">handle_message</tspan><tspan
          sodipodi:role="line"
          style="font-size:4.93889px;fill:#800000;stroke-width:0.264583"
-         x="4.2695432"
-         y="82.511147"
+         x="22.350439"
+         y="83.669701"
          id="tspan227510">ActiveFilteredLogger</tspan><tspan
          sodipodi:role="line"
          style="font-size:4.93889px;fill:#800000;stroke-width:0.264583"
-         x="4.2695432"
-         y="88.684753"
+         x="22.350439"
+         y="89.843307"
          id="tspan234768">TransformerLogger</tspan></text>
     <path
        style="fill:none;stroke:#800000;stroke-width:0.965;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       d="M 90.829423,100.78988 C 54.177802,84.576792 54.561631,84.576792 54.561631,84.576792 c 0,0 20.927949,2.049009 33.563448,-9.569021 -12.653567,-18.55073 0.402183,-57.383612 0.402183,-57.383612"
+       d="M 90.829423,100.78988 C 71.899725,87.569692 68.22678,94.592917 88.527262,17.624159"
        id="path240505"
-       sodipodi:nodetypes="cccc" />
+       sodipodi:nodetypes="cc" />
     <path
        style="fill:none;stroke:#000080;stroke-width:0.865;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       d="M 89.178741,66.529928 C 77.887123,46.981822 77.766864,57.919553 63.839654,48.247686 73.929002,44.928152 87.248635,29.708073 88.527262,17.624159"
+       d="M 89.178741,66.529928 C 71.801547,46.12326 71.446443,41.113408 88.527262,17.624159"
        id="path241861"
-       sodipodi:nodetypes="ccc" />
+       sodipodi:nodetypes="cc" />
     <path
        style="fill:none;stroke:#008000;stroke-width:0.865;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       d="m 89.884251,27.309912 c -1.356989,-9.685753 -3.136486,-0.678373 -27.66303,-7.271954 8.513899,-2.128565 25.027414,9.670111 26.306041,-2.413799"
+       d="M 88.463214,24.779237 C 67.420988,22.29696 73.727876,19.790923 88.527262,17.624159"
        id="path241861-9"
-       sodipodi:nodetypes="ccc" />
+       sodipodi:nodetypes="cc" />
   </g>
 </svg>

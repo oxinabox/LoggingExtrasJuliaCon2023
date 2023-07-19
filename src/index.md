@@ -1,22 +1,33 @@
 #  Logging in Julia
-## Logging stdlib and LoggingExtras.jl 
+## Logging stdlib and LoggingExtras.jl
+
 .row[
 .col[
-.image-50[![JuliaLogging](assets/logo.png)]
+.image-30[
+    ![JuliaLogging](assets/logo.png)
 ]
 ]
+]
+
 .row[
 .col[
     **Frames White** (she/they) <br>
     EDA & Compiler Engineer <br>
-
-.image-40[![JuliaHub](assets/juliahub.png)]
 ]
 .col[
-**JuliaCon** <br>
-2023<br>
+**JuliaCon** 2023<br>
 Boston<br>
 ] 
+]
+.row[
+.col[
+.image-40[
+    ![JuliaHub](assets/juliahub.png)
+]
+]
+.col[
+&nbsp;
+]
 ]
 
 ```@setup demo
@@ -25,17 +36,11 @@ Boston<br>
 
 ---
 ## Can you chose a more difficult location for a conference?
-.row[
-.col[
-.image-100[![Flight map](assets/map.svg)]
+.image-80[
+![Flight map](assets/map.svg)
 ]
-.col[
-Yes, we _could_ be in Bermuda.
 - It took me over 32 hours to get here.
 - 18,700 km in great circle distance
-
-]
-]
 The problem is the remoteness of Boston, and not of Perth.
 
 ---
@@ -54,12 +59,13 @@ The problem is the remoteness of Boston, and not of Perth.
 .col[
 **Logging**
 
-High level abstraction, with default fancy styling (by `ConsoleLogger`)
+High level abstraction
 
-Routable with log plumbing
+Default fancy styling (by `ConsoleLogger`)
+
+Routable with log plumbing (either with LoggingExtras or otherwise)
 
 Always printed to stderr (by `ConsoleLogger`)
-(This is important for making unix commandline tools that pipe together)
 
 ]
 .col[
@@ -68,6 +74,7 @@ Always printed to stderr (by `ConsoleLogger`)
 Low level primitive for writing text to streams.
 
 Outputs to the given stream.
+
 Defaults to stdout.
 ]
 ]
@@ -76,13 +83,13 @@ Defaults to stdout.
 ---
 
 ## Who is logging for ?
-Logging is a servant with many masters
+Logging needs to serve the needs of many different users
 
- - Operations Team monitoring production enviroment.
+ - Operations Team monitoring production environment.
     - Probably using some tool liked Cloudwatch or SumoLogic work with the logs
  - The developer:
     - printline logging is the classic debugging technique
- - The end user
+ - The end user on a local interactive session
     - communicating the state of the program
 
 ---
@@ -93,6 +100,17 @@ Logging is a servant with many masters
 .col[
 Direct the right content to the right place.
 ]
+
+---
+
+## Compositional Logging
+
+Core idea is to break down logging in to single function building blocks with a single purpose.
+
+We compose these building blocks to do more complicated things.
+
+Primarily the end-user configures a logger out of composable parts to meet their needs of the moment.
+
 
 ---
 
@@ -116,7 +134,7 @@ Direct the right content to the right place.
  - `catch_exceptions(logger::AbstractLogger)`
      - ugly duck of the logging functions, 
      - Only applicable to **sinks**
-     - Does this logger eat exceptions thrown during log message preparation.
+     - When using this logger should julia catch exceptions thrown during log message preparation.
 
 ---
 
@@ -131,51 +149,69 @@ Direct the right content to the right place.
 
 # Logging Filters
 
- - `MinLevelLogger`
- - `EarlyFilteredLogger`
- - `ActiveFilteredLogger`
+- `MinLevelLogger`
+    - controls `min_enabled_level`, thus allows disabling most of the logging machinery.
+- `EarlyFilteredLogger`
+    - controls `should_log`, thus allows stopping a message before computing arguments
+- `ActiveFilteredLogger`
+    - decides if `handle_message` should pass the message to it's child logger's `handle_message`.
 
 ---
 
-# TeeLogger
+## Muting a known warning
 
-It simply allows the same content to multiple loggers.
+Consider you may be calling a method from a package that logs a warning that is not applicable to you.
 
-Used in conjunction with filters to
+You can mute eveything from that module via
 
- - Apply Transforms to some inputs but not others
- - Send different messages to different files etc
-
-There is no JoinLogger to do the reverse, because that is done by reusing the logger in the composition.
-
----
-
-### Transformer
-
-
----
-
-# Sinks
-
-The final destination of a log message.
-
-Responsible for 
+```julia
+with_logger(EarlyFilteredLogger(x->x._module != Foo) current_logger()) do
+    foobar()
+end
+```
+Or for more confidence you won't mute anything unexpected:
+```julia
+filter = ActiveFilteredLogger(current_logger()) do
+    contains(x.message, r"Spam .* eggs .* ham")
+end
+with_logger(filter) do
+    foobar()
+end
+```
 
 ---
 
-# Sinks in LoggingExtras
+## LevelOverrideLogger
 
+`LevelOverrideLogger` is the functional opposite of the `MinLevelLogger`. It causes the wrapped logger to ignore it's `min_enabled_level`.
+
+
+It is use as part of the together with the `with_level` helper to enable different log levels in a particular scope.
+
+```julia
+julia> LoggingExtras.withlevel(Logging.Debug) do
+           @debug "debug logs are normally muted"
+           @debug "but not in this dynamic scope"
+       end
+┌ Debug: debug logs are normally muted
+└ @ Main REPL:2
+┌ Debug: but not in this dynamic scope
+└ @ Main REPL:3
+```
 ---
 
-# Other Sinks
- - Ten
 
----
+## Transformer
 
-# Examples
+The `TransformerLogger` takes a function to perform on all the log message and metadata, generating a new version of it, and passes that information on to its child logger.
 
-Most of these can be found in the LoggingExtras readme, 
-and/or the very good logging extras website
+This is very useful for many things.
+
+- add global state to all messages like
+   - timestamps
+   - configuration details
+- truncate overlong messages
+- add context data from logger declaration site (esp when using `with_logger`)
 
 ---
 
@@ -193,6 +229,19 @@ end;
 .image-80[
     ![screenshot](https://user-images.githubusercontent.com/5127634/218150503-c760b8bb-00b4-428d-96cc-c8c2ee9ca1ba.png)
 ]
+
+---
+
+## TeeLogger
+
+It sends the same content to multiple loggers that it wraps.
+
+Used in conjunction with filters to
+
+ - Apply Transforms to some inputs but not others
+ - Send different messages to different files etc
+
+There is no JoinLogger to do the reverse, because that is done by reusing the logger in the composition.
 
 ---
 
@@ -216,20 +265,71 @@ global_logger(
     ![plumbing depwarn](assets/plumbing_depwarn.svg)
 ]
 
----
-
-## Enabling Debug messages for one module
 
 ---
 
-## Muting a known warning
+## Sinks
 
+The final destination of a log message.
+
+A pure sink only does `handle_message`.
+Simply returning `true` for `should_log` etc, and `BelowMinLevel` for `min_enabled_level`. Since this filtering should be done by a composable filter.
+
+A lot of sink's are inpure -- copying the logging stdlib by implementing `min_enabled_level` themself; but that's not actually a problem.
+They still work well as a sink.
+
+While the `TransformerLogger` transforms the content of the log, and enriches it with more information,
+the sink is ultimately responsible for how it is presented to the user (or stored etc).
+
+---
+
+## Sinks in the Logging StdLib
+- `ConsoleLogger`: the default logger in the REPL we all know and love
+- `NullLogger`: It eats everything and produces no output. Usedul to mute *all* logs via `withlogger(NullLogger()) do`
+- `SimpleLogger`: A simple logger, no where near as much pretty formatting etc as the `ConsoleLogger`.
+
+
+---
+
+## Sinks in LoggingExtras
+Sink's are not the purpose of LoggingExtras.
+We accumulated a few though as it is a place to stick extra stuff.
+
+- `FileLogger`: a wrapper around the `SimpleLogger` that takes a filename and forces immediate flushing after every message.
+- `FormatLogger`: A logger that takes a function (that uses `print`) controlling how to render things (MiniLoggers.jl also does this idea)
+- `DatetimeRotatingFileLogger` a log that is automatically rolled into a new file periodically (LoggRollers.jl also does this idea)
+
+
+---
+
+## Other Sinks
+ - TensorBoardLogger.jl
+     - competitor to TensorboardX in python.
+     - TensorBoard can be well thought of as logger that accepts numbers to plots, vectors to make histograms etc
+ - TerminalLoggers.jl
+     - Like the `ConsoleLogger` but even richer
+     - Supports markdown, and progress bars
+ - SyslogLogging.jl
+     - Sink for the unix syslog
+
+---
+
+# Many Examples can be found in the LoggingExtras readme, 
+and/or the very good logging extras website.
+
+ - truncating long messages
+ - throttling messages based on time (useful for periodic updates)
+ - adding timestamps to every log message
 
 
 ---
 
 
 # Future Work
+## On LoggingExtras and the Logging stdlib
+
+I have a much longer list in the appendix here.
+But I will just share a few so we have time for questions and discussion
 
 ---
 
@@ -243,6 +343,7 @@ These things are useful
 Would make them testable
 
 Some are nonobvious
+(e.g. stacktraces)
 ]
 .col[
 
@@ -251,6 +352,9 @@ Some are nonobvious
 **Cons**
 
 These things are really configurable
+
+Nontrivial configuration is easier handled though writing code than passing arguments.
+(Hot-take)
 
 They are just not that long or complex
 ]
@@ -314,6 +418,24 @@ But that will also print `maxlog=3` in every message, that doesn't special case 
 
 ---
 
+## We have no Tables.jl logging sink
+(AFAIK)
+
+Particulary useful is using numerical keyed values
+
+Something that could then naturally be passes to CSV.jl, or Arrow.jl etc to dump the logs to a file.
+
+Or that could be passed to PrettyTables.jl to have a nice display of the values.
+
+This would be natural as a companion to TensorBoardLogger
+
+
+---
+
+# Appendix
+
+---
+
 ## Console Logger is very complex
 
 The `ConsoleLogger` is the opposite of a compositional logger.
@@ -331,7 +453,13 @@ Most of it wouldn't be enhanced by merely rewriting it as the composion of Loggi
 
 ## `ConsoleLogger` color/naming is not centered on /Info/Warn/etc
 
+Log Levelss are actually both numerical and categorical.
 
+It would be nice to be able to represent a level slightly less than a warning as `Warn-1` and one slightly more as `Warn+1`.
+But `Warn` is the lowest level that is printed as a Warning.
+`Warn-1` prints as an `Info`.
+
+![modified level](assets/modlevel.png)
 ---
 
 ## `JULIA_DEBUG` environment variable is not quite right
@@ -342,7 +470,7 @@ It's not part of the `ConsoleLogger` -- it actually bypasses the logging system 
 
 It's not free and it can't be turned off.
 Takes about least 20ns to check an env that doesn't exist.
-This means you can't put logging in a tight loop, since no matter how you configure your logging setup you can't disable this check.
+This means you can't put logging in a extremely tight loop, since no matter how you configure your logging setup you can't disable this check.
 
 See: https://github.com/JuliaLogging/LoggingExtras.jl/issues/20
 
@@ -366,15 +494,29 @@ but it might be being used for something else
 
 Similar, for julia 1.10 the function name is known at macro expansion time, and that also could be made available at this time (and later)
 
----
 
-## We have no Tables.jl logging sink
-(AFAIK)
 
-Particulary useful is using numerical keyed values
+## Add timestamps to every log message
 
-Something that could then naturally be passes to CSV.jl, or Arrow.jl etc to dump the logs to a file.
+```julia
+using LoggingExtras, Dates
 
-Or that could be passed to PrettyTables.jl to have a nice display of the values.
+timestamp_logger(logger) = TransformerLogger(logger) do log
+    kwargs = merge(log.kwargs, pairs((; timestamp=now())))
+    return merge(log, (; kwargs))
+end
 
-This would be natural as a companion to TensorBoardLogger
+global_logger(timestamp_logger(current_logger()))
+```
+
+```
+julia> @info "hi" x = 2
+┌ Info: hi
+│   timestamp = 2023-07-20T02:52:02.525
+└   x = 2
+
+julia> @warn "everything is wrong"
+┌ Warning: everything is wrong
+│   timestamp = 2023-07-20T02:52:28.297
+└ @ Main REPL[6]:1
+```
