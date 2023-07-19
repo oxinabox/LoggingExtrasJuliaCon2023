@@ -54,6 +54,27 @@ The problem is the remoteness of Boston, and not of Perth.
 
 ---
 
+## What is logging in julia like?
+
+```julia
+julia> @info "hello $name" y len_y=length(y) x.+y
+┌ Info: hello oxinabox
+│   y =
+│    3-element Vector{Int64}:
+│     1
+│     2
+│     3
+│   len_y = 3
+│   x .+ y =
+│    3-element Vector{Int64}:
+│     2
+│     3
+└     4
+```
+
+---
+
+
 ## Logging vs print
 .row[
 .col[
@@ -133,7 +154,6 @@ Primarily the end-user configures a logger out of composable parts to meet their
      - used by `MinLevelLogger` filter.
  - `catch_exceptions(logger::AbstractLogger)`
      - ugly duck of the logging functions, 
-     - Only applicable to **sinks**
      - When using this logger should julia catch exceptions thrown during log message preparation.
 
 ---
@@ -494,7 +514,7 @@ but it might be being used for something else
 
 Similar, for julia 1.10 the function name is known at macro expansion time, and that also could be made available at this time (and later)
 
-
+---
 
 ## Add timestamps to every log message
 
