@@ -39,7 +39,7 @@ Boston<br>
 .image-80[
 ![Flight map](assets/map.svg)
 ]
-- It took me over 32 hours to get here.
+- It took me over 42 hours to get here.
 - 18,700 km in great circle distance
 The problem is the remoteness of Boston, and not of Perth.
 
@@ -153,7 +153,7 @@ Primarily the end-user configures a logger out of composable parts to meet their
      - Even earlier filtering than `shouldlog` based on the lowest level this logger will accept.
      - used by `MinLevelLogger` filter.
  - `catch_exceptions(logger::AbstractLogger)`
-     - ugly duck of the logging functions, 
+     - not related to logger, so much as global need of end user.
      - When using this logger should julia catch exceptions thrown during log message preparation.
 
 ---
@@ -317,7 +317,7 @@ We accumulated a few though as it is a place to stick extra stuff.
 
 - `FileLogger`: a wrapper around the `SimpleLogger` that takes a filename and forces immediate flushing after every message.
 - `FormatLogger`: A logger that takes a function (that uses `print`) controlling how to render things (MiniLoggers.jl also does this idea)
-- `DatetimeRotatingFileLogger` a log that is automatically rolled into a new file periodically (LoggRollers.jl also does this idea)
+- `DatetimeRotatingFileLogger` a log that is automatically rolled into a new file periodically (LogRollers.jl also does this idea)
 
 
 ---
