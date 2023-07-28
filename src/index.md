@@ -449,6 +449,20 @@ Or that could be passed to PrettyTables.jl to have a nice display of the values.
 
 This would be natural as a companion to TensorBoardLogger
 
+---
+
+# Summary
+ - Logging in julia is pretty powerful and configuable
+ - use LoggingExtras to configure log plumbing to meet your needs
+ - Logging in Julia could be better, maybe work on that if its interesting to you
+
+.row[
+.col[
+.image-40[
+    ![JuliaLogging](assets/logo.png)
+]
+]
+]
 
 ---
 
@@ -480,6 +494,7 @@ But `Warn` is the lowest level that is printed as a Warning.
 `Warn-1` prints as an `Info`.
 
 ![modified level](assets/modlevel.png)
+
 ---
 
 ## `JULIA_DEBUG` environment variable is not quite right

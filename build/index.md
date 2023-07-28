@@ -695,6 +695,24 @@ This would be natural as a companion to TensorBoardLogger
 
 
 
+# Summary
+
+
+  * Logging in julia is pretty powerful and configuable
+  * use LoggingExtras to configure log plumbing to meet your needs
+  * Logging in Julia could be better, maybe work on that if its interesting to you
+
+
+.row[ .col[ .image-40[     ![JuliaLogging](assets/logo.png) ] ] ]
+
+
+---
+
+
+
+
+
+
 # Appendix
 
 
@@ -736,11 +754,10 @@ Log Levelss are actually both numerical and categorical.
 It would be nice to be able to represent a level slightly less than a warning as `Warn-1` and one slightly more as `Warn+1`. But `Warn` is the lowest level that is printed as a Warning. `Warn-1` prints as an `Info`.
 
 
+![modified level](assets/modlevel.png)
 
 
-
-
-## ![modified level](assets/modlevel.png)
+---
 
 
 
